@@ -1,0 +1,38 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+// Abstract contract
+abstract contract Animal {
+    function makeSound() external virtual returns (string memory);
+}
+
+// Interface
+interface Carnivore {
+    function eat(string calldata food) external;
+}
+
+// Concrete contract 
+contract Lion is Animal, Carnivore {
+    string private _sound;
+    string private _lastMeal;
+
+    constructor(string memory sound) {
+        _sound = sound;
+    }
+
+    // Implementing makeSound from Animal
+    function makeSound() external override returns (string memory) {
+        return _sound;
+    }
+
+    // Implementing eat from Carnivore
+    function eat(string calldata food) external override {
+        _lastMeal = food;
+        // Actual eating logic can be added here
+    }
+
+    // Function to retrieve the last meal eaten
+    function lastMeal() external view returns (string memory) {
+        return _lastMeal;
+    }
+}
