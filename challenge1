@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract SimpleEtherReceiver {
+    // Event to received Ether
+    event EtherReceived(address sender, uint256 amount);
+    
+    // Function to get the balance of the contract
+    function get() public view returns (uint256) {
+        return address(this).balance;
+    }
+
+    // Receive function to handle plain Ether transfers
+    receive() external payable {
+        emit EtherReceived(msg.sender, msg.value);
+    }
+
+    // Fallback function to handle unrecognized calls
+  
+    fallback() external payable {
+        emit EtherReceived(msg.sender, msg.value);
+    }
+}
